@@ -1,1 +1,508 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sosial Siyasət Deli</title>
+<style>
+* { box-sizing: border-box; }
 
+body {
+  margin: 0;
+  padding: 25px;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#151b35,#392c60,#182b48);
+  color: white;
+  min-height: 100vh;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+header h1 {
+  font-size: 34px;
+  color: #f4d58d;
+  margin-bottom: 8px;
+}
+
+header p { color: #d1cce6; }
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.top {
+  background: #ffffff15;
+  padding: 18px;
+  border-radius: 15px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  width: 90%;
+  margin: 6px;
+  font-size: 15px;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 9px;
+  padding: 12px;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+button:hover:not(:disabled) {
+  transform: scale(1.02);
+}
+
+.start {
+  background: #e7bc70;
+  color: #25213d;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.question-box {
+  background: #ffffff;
+  color: #25213d;
+  padding: 24px;
+  border-radius: 18px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#question {
+  font-size: 21px;
+  line-height: 1.5;
+}
+
+.teams {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.team {
+  padding: 22px;
+  border-radius: 17px;
+  background: #ffffff;
+  color: #25213d;
+  text-align: center;
+}
+
+.left { border-top: 7px solid #477cc4; }
+.right { border-top: 7px solid #bd659e; }
+
+.team h2 { margin: 5px; }
+
+.points {
+  font-size: 34px;
+  font-weight: bold;
+  margin: 12px;
+}
+
+.options button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  background: #eeeaf6;
+  color: #30274d;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.options button:disabled { opacity: 1; }
+
+.options button.correct {
+  background: #c5efd7;
+  color: #17633d;
+}
+
+.options button.wrong {
+  background: #f5caca;
+  color: #8b2929;
+}
+
+.status {
+  min-height: 45px;
+  margin-top: 12px;
+  font-weight: bold;
+}
+
+#next {
+  display: none;
+  background: #e7bc70;
+  color: #25213d;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 20px;
+}
+
+#final {
+  display: none;
+  background: white;
+  color: #282044;
+  padding: 35px;
+  text-align: center;
+  border-radius: 18px;
+  margin-top: 20px;
+}
+
+#final h2 { color: #7652a8; }
+
+#explanation {
+  background: #eeeaf7;
+  border-radius: 10px;
+  padding: 15px;
+  color: #30274d;
+  line-height: 1.5;
+  margin-top: 15px;
+}
+
+@media(max-width:650px) {
+  body { padding: 12px; }
+  .teams { grid-template-columns: 1fr; }
+  header h1 { font-size: 26px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🏆 SOSİAL SİYASƏT DUELİ</h1>
+  <p>15 sual • 2 tələbə • 1 qalib</p>
+</header>
+
+<div class="container">
+
+<div class="top" id="registration">
+  <h2>Yarışa xoş gəlmisiniz!</h2>
+  <input id="name1" placeholder="Sol tərəfdəki tələbənin adı">
+  <input id="name2" placeholder="Sağ tərəfdəki tələbənin adı">
+  <br>
+  <button class="start" onclick="startGame()">OYUNA BAŞLA 🚀</button>
+</div>
+
+<div id="game" style="display:none">
+
+  <div class="question-box">
+    <h3 id="progress">SUAL 1 / 15</h3>
+    <h2 id="question"></h2>
+    <p>Hər düzgün cavab 10 xal qazandırır.</p>
+  </div>
+
+  <div class="teams">
+
+    <div class="team left">
+      <h2>🔵 <span id="leftName">Sol tələbə</span></h2>
+      <p>TOPLANAN XAL</p>
+      <div class="points" id="leftPoints">0</div>
+      <div class="options" id="leftOptions"></div>
+      <div class="status" id="leftStatus">Cavabını seç!</div>
+    </div>
+
+    <div class="team right">
+      <h2>🟣 <span id="rightName">Sağ tələbə</span></h2>
+      <p>TOPLANAN XAL</p>
+      <div class="points" id="rightPoints">0</div>
+      <div class="options" id="rightOptions"></div>
+      <div class="status" id="rightStatus">Cavabını seç!</div>
+    </div>
+
+  </div>
+
+  <div id="explanation" style="display:none"></div>
+
+  <button id="next" onclick="nextQuestion()">
+    NÖVBƏTİ SUAL →
+  </button>
+
+</div>
+
+<div id="final">
+  <h1>🏆 YARIŞ BAŞA ÇATDI!</h1>
+  <h2 id="winner"></h2>
+  <h3 id="finalScore"></h3>
+  <p id="message"></p>
+  <button class="start" onclick="location.reload()">
+    YENİDƏN OYNA
+  </button>
+</div>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+q:"1. Liberal sosial siyasət modelinin əsas xüsusiyyəti hansıdır?",
+a:["Dövlətin bütün sahələrdə tam təminat verməsi","Bazar mexanizmi və fərdi məsuliyyətin üstünlüyü","Universal sosial təminatın tam üstünlüyü","Yalnız dövlət müəssisələrinin fəaliyyət göstərməsi"],
+c:1,
+e:"Liberal modeldə bazar iqtisadiyyatı, fərdi məsuliyyət və ünvanlı sosial yardım mühüm yer tutur."
+},
+
+{
+q:"2. Skandinaviya modeli hansı sosial siyasət modelinə aiddir?",
+a:["Liberal","Aralıq dənizi","Sosial-demokratik","Konservativ-korporativ"],
+c:2,
+e:"İsveç, Norveç, Danimarka və Finlandiya sosial-demokratik modelin əsas nümunələridir."
+},
+
+{
+q:"3. Bismark modelinin əsasını nə təşkil edir?",
+a:["Sosial sığorta sistemi","Yalnız könüllü yardımlar","Bazarın tam sərbəstliyi","Ailə dəstəyinin yeganə təminat olması"],
+c:0,
+e:"Bismark modelində sosial müdafiə əsasən əmək fəaliyyəti və sosial sığorta ödənişləri ilə əlaqəlidir."
+},
+
+{
+q:"4. Bir ölkədə sosial təminatın əsasən vətəndaşların əmək fəaliyyəti və ödədikləri sığorta haqları ilə əlaqələndirilməsi hansı nəticəyə səbəb ola bilər?",
+a:[
+"Əmək fəaliyyəti olmayan şəxslərin sosial təminat imkanlarının məhdudlaşmasına",
+"Bütün vətəndaşların eyni həcmdə sosial təminat almasına",
+"Sosial təminatın yalnız dövlət büdcəsindən maliyyələşməsinə",
+"Ailə münasibətlərinin sosial müdafiədə əsas rol oynamasına"
+],
+c:0,
+e:"Bu yanaşma Bismark modelinə xasdır. Sosial təminat əmək fəaliyyəti və sığorta haqları ilə əlaqəli olduğundan əmək bazarından kənarda qalan şəxslər daha zəif müdafiə oluna bilərlər."
+},
+{
+q:"5. Sosial-demokratik modeldə sosial xidmətlər necə təşkil olunur?",
+a:["Əsasən yalnız özəl sektor tərəfindən","Yalnız yüksək gəlirlilərə təqdim edilir","Geniş əhali qrupları üçün əlçatan və universal şəkildə","Yalnız fövqəladə hallarda"],
+c:2,
+e:"Sosial-demokratik modeldə dövlət geniş sosial xidmətlər göstərir və bərabər imkanlar yaratmağa çalışır."
+},
+
+{
+q:"6. Liberal modeldə dövlətin sosial müdafiədə rolu necə xarakterizə olunur?",
+a:["Məhdud və daha çox ehtiyacı olanlara yönəlmiş","Bütün sosial xidmətləri birbaşa idarə edən","Bütün gəlirləri bərabərləşdirən","Sosial sahədə heç bir rolu olmayan"],
+c:0,
+e:"Liberal modeldə dövlətin müdaxiləsi nisbətən məhduddur. Yardımlar daha çox ehtiyac meyarına əsaslanır."
+},
+
+{
+q:"7. Konservativ-korporativ modeldə sosial təminat daha çox nədən asılıdır?",
+a:["Vətəndaşın yaşadığı şəhərdən","Əmək fəaliyyəti və sığorta statusundan","Yalnız könüllülük fəaliyyətindən","Ailədə uşaqların sayından"],
+c:1,
+e:"Bu modeldə sosial təminat çox vaxt insanın məşğulluğu, qazancı və sosial sığorta haqları ilə əlaqələndirilir."
+},
+
+{
+q:"8. Aralıq dənizi modelində ailənin rolu necədir?",
+a:["Ailə heç bir rol oynamır","Bütün xidmətləri yalnız dövlət göstərir","Ailə sosial dəstəyin əsas mənbələrindən biridir","Ailə yalnız maliyyə yardımı alır"],
+c:2,
+e:"İtaliya, İspaniya və Yunanıstan kimi ölkələrdə ailə ənənələri və qohum dəstəyi sosial müdafiədə mühüm rol oynayır."
+},
+
+{
+q:"9. Sosial-demokratik modelin əsas məqsədlərindən biri hansıdır?",
+a:["Sosial bərabərsizliyi azaltmaq","Yalnız sahibkarları dəstəkləmək","Dövlətin sosial xidmətlərini azaltmaq","Sosial sığortanı ləğv etmək"],
+c:0,
+e:"Bu model sosial ədaləti, gəlirlərin yenidən bölüşdürülməsini və bərabər imkanları dəstəkləyir."
+},
+
+{
+q:"10. Hansı ölkə liberal sosial siyasət modelinə nümunə göstərilir?",
+a:["İsveç","Norveç","ABŞ","Danimarka"],
+c:2,
+e:"ABŞ liberal sosial siyasət modelinin klassik nümunələrindən biri hesab olunur."
+},
+
+{
+q:"11. Sosial-demokratik modelin maliyyələşdirilməsində hansı vasitə mühüm rol oynayır?",
+a:["Yalnız xarici yardımlar","Nisbətən yüksək vergilər və dövlət büdcəsi","Yalnız ailə vəsaitləri","Yalnız özəl ianələr"],
+c:1,
+e:"Geniş sosial xidmətlərin maliyyələşdirilməsi üçün sosial-demokratik modeldə vergilər mühüm mənbədir."
+},
+
+{
+q:"12. Sosial siyasət modelləri arasında əsas fərqlər nədən yaranır?",
+a:["Ölkələrin yalnız ərazisindən","Yalnız əhalinin sayından","Dövlətin, bazarın və ailənin sosial müdafiədə iştirakından","Yalnız iqlim şəraitindən"],
+c:2,
+e:"Modellər dövlətin, bazarın, ailənin və sosial sığorta sisteminin məsuliyyət bölgüsünə görə fərqlənir."
+},
+
+{
+q:"13. Bismark modelinin tarixi olaraq formalaşması hansı ölkə ilə bağlıdır?",
+a:["Almaniya","İsveç","ABŞ","Yaponiya"],
+c:0,
+e:"Bismark modeli XIX əsrin sonlarında Almaniyada Otto fon Bismarkın sosial sığorta islahatları ilə formalaşmışdır."
+},
+
+{
+q:"14. Universal sosial təminat anlayışı nə deməkdir?",
+a:["Yalnız işləyənlərə yardım göstərilməsi","Sosial təminatın yalnız yoxsullara verilməsi","Sosial xidmətlərin yalnız özəl olması","Geniş əhali qruplarının sosial təminat və xidmətlərdən yararlanması"],
+c:3,
+e:"Universal təminat sosial hüquqların geniş əhali qruplarını əhatə etməsi deməkdir."
+},
+
+{
+q:"15. Azərbaycan üçün sosial siyasət modeli seçilərkən hansı yanaşma daha məqsədəuyğundur?",
+a:["Başqa ölkənin modelini olduğu kimi köçürmək","Ölkənin iqtisadi və sosial şəraitinə uyğun müxtəlif modellərin müsbət tərəflərini birləşdirmək","Sosial müdafiəni tamamilə ləğv etmək","Yalnız bir sosial qrupu müdafiə etmək"],
+c:1,
+e:"Hər ölkənin iqtisadi, demoqrafik və mədəni xüsusiyyətləri fərqlidir. Buna görə də modellərin müsbət cəhətləri yerli şəraitə uyğunlaşdırılmalıdır."
+}
+
+];
+
+let current = 0;
+let scores = [0,0];
+let selected = [null,null];
+let names = [];
+
+function startGame() {
+  names = [
+    document.getElementById("name1").value.trim() || "Sol tələbə",
+    document.getElementById("name2").value.trim() || "Sağ tələbə"
+  ];
+
+  document.getElementById("leftName").innerText = names[0];
+  document.getElementById("rightName").innerText = names[1];
+  document.getElementById("registration").style.display = "none";
+  document.getElementById("game").style.display = "block";
+
+  showQuestion();
+}
+
+function showQuestion() {
+  selected = [null,null];
+
+  const q = questions[current];
+
+  document.getElementById("progress").innerText =
+    "SUAL " + (current+1) + " / 15";
+
+  document.getElementById("question").innerText = q.q;
+
+  document.getElementById("leftStatus").innerText = "Cavabını seç!";
+  document.getElementById("rightStatus").innerText = "Cavabını seç!";
+
+  document.getElementById("explanation").style.display = "none";
+  document.getElementById("next").style.display = "none";
+
+  createOptions(0,"leftOptions");
+  createOptions(1,"rightOptions");
+}
+
+function createOptions(player, elementId) {
+  const area = document.getElementById(elementId);
+  area.innerHTML = "";
+
+  questions[current].a.forEach((answer,index) => {
+    const btn = document.createElement("button");
+    btn.innerText = String.fromCharCode(65+index) + ") " + answer;
+
+    btn.onclick = () => chooseAnswer(player,index);
+
+    area.appendChild(btn);
+  });
+}
+
+function chooseAnswer(player,index) {
+  if (selected[player] !== null) return;
+
+  selected[player] = index;
+
+  const side = player === 0 ? "left" : "right";
+  const status = document.getElementById(side+"Status");
+  const buttons = document.getElementById(side+"Options").children;
+
+  for (let i=0;i<buttons.length;i++) {
+    buttons[i].disabled = true;
+    if (i === index) {
+      buttons[i].style.background = "#d9d0ed";
+    }
+  }
+
+  status.innerText = "Cavab seçildi!";
+
+  if (selected[0] !== null && selected[1] !== null) {
+    revealAnswers();
+  }
+}
+
+function revealAnswers() {
+  const q = questions[current];
+
+  [0,1].forEach(player => {
+    const side = player === 0 ? "left" : "right";
+    const buttons = document.getElementById(side+"Options").children;
+    const status = document.getElementById(side+"Status");
+
+    for (let i=0;i<buttons.length;i++) {
+      if (i === q.c) {
+        buttons[i].classList.add("correct");
+      }
+      if (i === selected[player] && i !== q.c) {
+        buttons[i].classList.add("wrong");
+      }
+    }
+
+    if (selected[player] === q.c) {
+      scores[player] += 10;
+      status.innerText = "✓ DÜZGÜN! +10 XAL";
+    } else {
+      status.innerText = "✗ SƏHV CAVAB";
+    }
+  });
+
+  document.getElementById("leftPoints").innerText = scores[0];
+  document.getElementById("rightPoints").innerText = scores[1];
+
+  document.getElementById("explanation").innerText =
+    "DÜZGÜN CAVAB: " + q.a[q.c] + "\n\nİZAH: " + q.e;
+
+  document.getElementById("explanation").style.display = "block";
+
+  document.getElementById("next").style.display = "block";
+  document.getElementById("next").innerText =
+    current === 14 ? "NƏTİCƏLƏRİ GÖR 🏆" : "NÖVBƏTİ SUAL →";
+}
+
+function nextQuestion() {
+  current++;
+
+  if (current < questions.length) {
+    showQuestion();
+  } else {
+    finishGame();
+  }
+}
+
+function finishGame() {
+  document.getElementById("game").style.display = "none";
+  document.getElementById("final").style.display = "block";
+
+  document.getElementById("finalScore").innerText =
+    names[0] + ": " + scores[0] + " xal | " +
+    names[1] + ": " + scores[1] + " xal";
+
+  if (scores[0] > scores[1]) {
+    document.getElementById("winner").innerText =
+      "🏆 QALİB: " + names[0];
+  } else if (scores[1] > scores[0]) {
+    document.getElementById("winner").innerText =
+      "🏆 QALİB: " + names[1];
+  } else {
+    document.getElementById("winner").innerText =
+      "🤝 HEÇ-HEÇƏ!";
+  }
+
+  document.getElementById("message").innerText =
+    "Yarışda iştirak etdiyiniz üçün təşəkkür edirik!";
+}
+
+</script>
+</body>
+</html>
