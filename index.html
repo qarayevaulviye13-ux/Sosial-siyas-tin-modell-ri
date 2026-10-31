@@ -3,390 +3,341 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>COLOR RACE - Sosial Siyasət</title>
+<title>Labirintdən çıxış – Bilik yarışı</title>
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;min-height:100vh;font-family:Arial,sans-serif;color:#fff;
- background:linear-gradient(130deg,#24105b,#102b65,#092e48);
- background-attachment:fixed;
+ margin:0;padding:18px;font-family:Arial,sans-serif;color:white;
+ background:linear-gradient(135deg,#160b38,#153b68,#092c40);
+ min-height:100vh;text-align:center
 }
-body:before{
- content:"";position:fixed;inset:0;pointer-events:none;
- background-image:radial-gradient(#ffffff55 1px,transparent 1px);
- background-size:28px 28px;opacity:.35
-}
-.container{width:min(1050px,94%);margin:auto;padding:22px 0 40px;position:relative}
-header{text-align:center;margin-bottom:22px}
-.logo{
- display:inline-block;padding:9px 20px;border-radius:30px;
- background:linear-gradient(90deg,#ff4d8d,#ffb52e,#35d6c5);
- color:#24105b;font-weight:900;letter-spacing:2px
-}
-h1{
- font-size:clamp(32px,7vw,58px);margin:13px 0 5px;
- background:linear-gradient(90deg,#ffdf5d,#ff71b8,#55e8ff);
- -webkit-background-clip:text;background-clip:text;color:transparent;
- text-shadow:0 5px 25px #ff71b855
-}
-header p{color:#d8e4ff;letter-spacing:3px;font-size:13px;font-weight:bold}
-.screen{display:none;animation:enter .45s ease}
-.screen.active{display:block}
-@keyframes enter{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
-.panel{
- background:#ffffff13;border:1px solid #ffffff35;border-radius:25px;
- padding:23px;box-shadow:0 15px 45px #0005;backdrop-filter:blur(13px)
-}
-.start{max-width:570px;margin:35px auto;text-align:center}
-.big-icon{font-size:75px;filter:drop-shadow(0 0 18px #ffdf5d)}
-input{
- width:100%;padding:15px;margin:10px 0;border:2px solid #8e7bff;
- border-radius:14px;background:#17194b;color:white;font-size:16px
-}
-button{border:0;cursor:pointer;font-weight:bold;transition:.2s}
-button:hover:not(:disabled){transform:translateY(-3px);filter:brightness(1.13)}
-.main-btn{
- padding:15px 28px;border-radius:30px;margin-top:15px;
- color:#21123e;background:linear-gradient(90deg,#ffdf5d,#ff9f43);
- font-size:16px;box-shadow:0 7px 24px #ffb52e55
-}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:16px 0}
-.pill{
- padding:11px 16px;border-radius:30px;background:#ffffff18;
- border:1px solid #ffffff35;font-weight:bold
-}
-.timer{
- padding:12px 22px;border-radius:30px;background:linear-gradient(90deg,#ff416c,#ff784f);
- font-size:23px;font-weight:900;box-shadow:0 0 20px #ff416c77
-}
-.timer.danger{background:#bd164d;animation:blink .5s infinite alternate}
-@keyframes blink{to{transform:scale(1.08)}}
-.scoreboard{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:15px 0}
+h1{font-size:clamp(25px,5vw,42px);color:#ffe66d;text-shadow:0 0 15px #ff9f43}
+.subtitle{color:#d9e8ff}
+.game{max-width:1050px;margin:auto}
+.players{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:18px 0}
 .player{
- padding:15px;border-radius:20px;text-align:center;
- border:2px solid #ffffff55;background:linear-gradient(135deg,#713bd5,#4434a6)
+ flex:1;min-width:145px;padding:13px;border-radius:16px;
+ background:#ffffff18;border:2px solid #ffffff40
 }
-.player.two{background:linear-gradient(135deg,#008fbd,#2355b7)}
-.player h3{margin:4px;font-size:17px}
-.points{font-size:29px;font-weight:900;color:#ffe66d;margin:5px}
-.track-panel{margin:18px 0}
-.track-title{text-align:center;color:#ffe66d;font-size:19px}
-.track{
- display:grid;grid-template-columns:repeat(16,1fr);gap:4px;
- padding:12px 0
-}
-.tile{
- height:48px;min-width:0;border-radius:9px;position:relative;
- display:flex;align-items:center;justify-content:center;
- background:linear-gradient(145deg,#ffffff22,#ffffff0c);
- border:1px solid #ffffff35;font-size:17px
-}
-.tile:nth-child(4n+1){background-color:#ff71b822}
-.tile.bonus{background:#d5a90055;border-color:#ffe66d}
-.tile.trap{background:#ff416c55;border-color:#ff91a8}
-.tile.finish{background:linear-gradient(135deg,#00a875,#4be6a3);border-color:#a5ffdc}
-.tile.passed{background:linear-gradient(135deg,#704ce0,#a04bea)}
-.runner{font-size:25px;position:absolute;z-index:2;filter:drop-shadow(0 0 5px white)}
-.lane-label{font-weight:bold;margin:8px 0 0}
-.legend{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;font-size:12px;color:#e1e7ff}
+.player h3{margin:4px}
+.p1{color:#ff7777}.p2{color:#70eaff}
+.stats{font-size:14px;margin-top:7px}
 .question{
- text-align:center;padding:24px 17px;margin:18px 0;border-radius:23px;
- background:linear-gradient(130deg,#a337c9,#5b43d9,#087eb5);
- border:2px solid #c8a7ff;box-shadow:0 8px 25px #080b3266
+ background:#fff;color:#202044;border-radius:18px;padding:18px;
+ max-width:700px;margin:15px auto;box-shadow:0 8px 25px #0005
 }
-.question small{color:#ffe66d;font-weight:bold;letter-spacing:2px}
-.question h2{font-size:clamp(18px,3vw,24px);line-height:1.5}
-.players{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.answer-box{padding:17px;border-radius:20px;background:#ffffff12;border:1px solid #ffffff35}
-.answer-box h3{text-align:center;color:#ffe66d}
-.answers{display:grid;gap:9px}
+#question{font-size:19px;font-weight:bold;margin:8px}
+.timer{font-size:28px;color:#e74c3c;font-weight:bold}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
 .answer{
- padding:13px;text-align:left;border-radius:13px;color:white;
- background:linear-gradient(100deg,#343e91,#5550b7);
- border:1px solid #8e8aff;min-height:48px
+ padding:13px;border:0;border-radius:12px;background:#e9eaff;
+ color:#202044;font-size:15px;font-weight:bold;cursor:pointer
 }
-.answer-box:nth-child(2) .answer{background:linear-gradient(100deg,#096d9b,#2865b8);border-color:#65dcff}
-.answer:disabled{opacity:.9;cursor:default}
-.answer.selected{outline:3px solid #ffe66d}
-.answer.correct{background:#087b4c!important;border-color:#69ffad}
-.answer.wrong{background:#b31e50!important;border-color:#ff8cac}
-.status{text-align:center;min-height:22px;margin-top:10px;font-size:13px;color:#e0e7ff}
-.feedback{
- display:none;text-align:center;margin-top:18px;padding:20px;
- border-radius:20px;background:linear-gradient(120deg,#3b2d84,#154d73);
- border:2px solid #ffe66d
+.answer:hover{background:#d3d5ff}
+.answer:disabled{opacity:.65;cursor:default}
+.answer.correct{background:#a5efb5}
+.answer.wrong{background:#ffb0b0}
+#feedback{font-weight:bold;min-height:24px;margin-top:10px}
+.maze-wrap{
+ max-width:570px;margin:18px auto;padding:12px;
+ background:#ffffff17;border-radius:18px;border:2px solid #ffffff40
 }
-.feedback.show{display:block;animation:enter .4s}
-.feedback h3{color:#ffe66d}
-.result{text-align:center;padding:35px 18px}
-.trophy{font-size:85px;animation:float 1s infinite alternate}
-@keyframes float{to{transform:translateY(-12px) rotate(6deg)}}
-.result h2{font-size:clamp(26px,5vw,40px);color:#ffe66d}
-.final{font-size:19px;line-height:2}
-@media(max-width:650px){
- .players{grid-template-columns:1fr}
- .tile{height:38px;font-size:13px}
- .runner{font-size:20px}
- .scoreboard{gap:8px}
- .player{padding:11px 4px}
+#maze{
+ display:grid;grid-template-columns:repeat(21,1fr);
+ width:100%;aspect-ratio:1;border:3px solid #ffe66d;
+ border-radius:8px;overflow:hidden;background:#18213b
+}
+.tile{aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+.wall{background:#25365d}
+.path{background:#f1e9d3}
+.tile .token{font-size:clamp(10px,2.6vw,19px);z-index:2}
+.exit{background:#ffe66d!important}
+.controls{
+ display:flex;justify-content:space-around;gap:15px;flex-wrap:wrap;
+ margin:15px auto
+}
+.control-box{
+ background:#ffffff18;padding:12px;border-radius:15px;min-width:190px
+}
+.control-box h3{margin:5px}
+.arrows{display:grid;grid-template-columns:repeat(3,48px);gap:5px;justify-content:center;margin-top:10px}
+.arrows button{
+ border:0;border-radius:9px;background:#ffe66d;color:#202044;
+ font-size:20px;font-weight:bold;height:42px;cursor:pointer
+}
+.arrows button:disabled{opacity:.3}
+.empty{visibility:hidden}
+.next{
+ background:#54e0a2;color:#10352b;border:0;border-radius:12px;
+ padding:13px 22px;font-size:16px;font-weight:bold;cursor:pointer;margin:12px
+}
+.next:disabled{opacity:.4;cursor:default}
+.rules{
+ max-width:700px;margin:20px auto;padding:14px;
+ background:#ffffff12;border-radius:14px;text-align:left;line-height:1.7
+}
+#result{font-size:25px;color:#ffe66d;font-weight:bold;margin:20px}
+@media(max-width:500px){
+ body{padding:10px}.answers{grid-template-columns:1fr}
+ .maze-wrap{padding:6px}.control-box{min-width:145px}
 }
 </style>
 </head>
 <body>
-<div class="container">
-<header>
- <div class="logo">✦ THE ULTIMATE QUIZ ✦</div>
- <h1>COLOR RACE</h1>
- <p>SOSİAL SİYASƏT • 2 OYUNÇU • 15 SUAL</p>
-</header>
+<div class="game">
+<h1>🧩 LABİRİNTDƏN ÇIXIŞ</h1>
+<p class="subtitle">Biliklərini göstər, yolu tap və finişə birinci çat!</p>
 
-<section id="start" class="screen active">
- <div class="panel start">
-  <div class="big-icon">🏎‍🟀</div>
-  <h2>Rənglər yarışına xoş gəlmisiniz!</h2>
-  <p>Kim daha sürətli və bilikli olacaq?</p>
-  <input id="name1" placeholder="🔴 Birinci oyunçunun adı">
-  <input id="name2" placeholder="🔵 İkinci oyunçunun adı">
-  <p style="color:#d7e1ff;line-height:1.7">
-   25 saniyədə cavabını seç! Düzgün cavabla irəlilə,
-   bonusları qazan və finişə birinci çat!
-  </p>
-  <button class="main-btn" onclick="startGame()">YARIŞA BAŞLA 🚀</button>
+<div class="players">
+ <div class="player">
+  <h3 class="p1">🔴 OYUNÇU 1</h3>
+  <div class="stats">Düzgün cavab: <b id="score1">0</b></div>
+  <div class="stats">Hərəkət imkanı: <b id="moves1">0</b></div>
  </div>
-</section>
-
-<section id="game" class="screen">
- <div class="topbar">
-  <div class="pill" id="round">SUAL 1 / 15</div>
-  <div class="timer" id="timer">⏱️ 25</div>
-  <div class="pill" id="answered">Cavab: 0 / 2</div>
+ <div class="player">
+  <h3 class="p2">🔵 OYUNÇU 2</h3>
+  <div class="stats">Düzgün cavab: <b id="score2">0</b></div>
+  <div class="stats">Hərəkət imkanı: <b id="moves2">0</b></div>
  </div>
+</div>
 
- <div class="scoreboard">
-  <div class="player">
-   <h3 id="pname1">🔴 Oyunçu 1</h3>
-   <div class="points" id="score1">0</div>
-   <small>DÜZGÜN CAVAB</small>
-  </div>
-  <div class="player two">
-   <h3 id="pname2">🔵 Oyunçu 2</h3>
-   <div class="points" id="score2">0</div>
-   <small>DÜZGÜN CAVAB</small>
+<div class="question">
+ <div class="timer" id="timer">25</div>
+ <div id="question">Sual yüklənir...</div>
+ <div class="answers" id="answers"></div>
+ <div id="feedback">Hər iki oyunçu cavab verdikdən sonra hərəkət edə bilər.</div>
+</div>
+
+<div class="maze-wrap">
+ <div id="maze"></div>
+</div>
+
+<div class="controls">
+ <div class="control-box">
+  <h3 class="p1">🔴 Oyunçu 1</h3>
+  <div class="arrows">
+   <span class="empty"></span><button onclick="move(0,-1,0)">↑</button><span class="empty"></span>
+   <button onclick="move(0,0,-1)">←</button>
+   <button onclick="move(0,1,0)">↓</button>
+   <button onclick="move(0,0,1)">→</button>
   </div>
  </div>
-
- <div class="panel track-panel">
-  <h3 class="track-title">🌈 YARIŞ MEYDANÇASI</h3>
-  <div class="lane-label" id="trackName1">🔴 Oyunçu 1</div>
-  <div class="track" id="track1"></div>
-  <div class="lane-label" id="trackName2">🔵 Oyunçu 2</div>
-  <div class="track" id="track2"></div>
-  <div class="legend">
-   <span>⭐ Bonus</span><span>⚡ Sürət</span>
-   <span>⚠️ Maneə</span><span>🏁 Finiş</span>
+ <div class="control-box">
+  <h3 class="p2">🔵 Oyunçu 2</h3>
+  <div class="arrows">
+   <span class="empty"></span><button onclick="move(1,-1,0)">↑</button><span class="empty"></span>
+   <button onclick="move(1,0,-1)">←</button>
+   <button onclick="move(1,1,0)">↓</button>
+   <button onclick="move(1,0,1)">→</button>
   </div>
  </div>
+</div>
 
- <div class="question">
-  <small>💡 BİLİK SƏNİN GÜCÜNDÜR</small>
-  <h2 id="questionText"></h2>
- </div>
+<button class="next" id="next" onclick="nextQuestion()" disabled>Növbəti sual ➜</button>
+<div id="result"></div>
 
- <div class="players">
-  <div class="answer-box">
-   <h3 id="title1">🔴 Oyunçu 1</h3>
-   <div class="answers" id="answers1"></div>
-   <div class="status" id="status1">Cavabını seç!</div>
-  </div>
-  <div class="answer-box">
-   <h3 id="title2">🔵 Oyunçu 2</h3>
-   <div class="answers" id="answers2"></div>
-   <div class="status" id="status2">Cavabını seç!</div>
-  </div>
- </div>
-
- <div class="feedback" id="feedback">
-  <h3 id="feedbackTitle"></h3>
-  <p id="feedbackText"></p>
-  <button class="main-btn" id="nextBtn" onclick="nextQuestion()">NÖVBƏTİ SUAL ➜</button>
- </div>
-</section>
-
-<section id="end" class="screen">
- <div class="panel result">
-  <div class="trophy">🏆</div>
-  <h2 id="winner"></h2>
-  <div class="final" id="finalScores"></div>
-  <h3>🌟 Möhtəşəm yarış idi!</h3>
-  <button class="main-btn" onclick="location.reload()">YENİDƏN OYNA 🔄</button>
- </div>
-</section>
+<div class="rules">
+ <b>📌 Oyun qaydaları</b><br>
+ 🔹 Hər suala 25 saniyə vaxt verilir.<br>
+ 🔹 Hər iki oyunçu eyni suala cavab verir.<br>
+ 🔹 Düzgün cavab 2 hərəkət imkanı qazandırır.<br>
+ 🔹 Ox düymələri ilə labirintdə hərəkət edirlər.<br>
+ 🔹 Divardan keçmək mümkün deyil.<br>
+ 🔹 Öz çıxışına birinci çatan oyunçu qalibdir!
+</div>
 </div>
 
 <script>
-const questions = [
-{q:"1. Liberal sosial siyasət modelinin əsas xüsusiyyəti hansıdır?",a:["Dövlətin bütün sahələrdə tam təminat verməsi","Bazar mexanizmi və fərdi məsuliyyətin üstünlüyü","Universal sosial təminatın tam üstünlüyü","Yalnız dövlət müəssisələrinin fəaliyyət göstərməsi"],c:1,e:"Liberal modeldə bazar iqtisadiyyatı, fərdi məsuliyyət və ünvanlı sosial yardım mühüm yer tutur."},
-{q:"2. Skandinaviya modeli hansı sosial siyasət modelinə aiddir?",a:["Liberal","Aralıq dənizi","Sosial-demokratik","Konservativ-korporativ"],c:2,e:"İsveç, Norveç, Danimarka və Finlandiya sosial-demokratik modelin əsas nümunələridir."},
-{q:"3. Bismark modelinin əsasını nə təşkil edir?",a:["Sosial sığorta sistemi","Yalnız könüllü yardımlar","Bazarın tam sərbəstliyi","Ailə dəstəyinin yeganə təminat olması"],c:0,e:"Bismark modelində sosial müdafiə əsasən əmək fəaliyyəti və sosial sığorta ödənişləri ilə əlaqəlidir."},
-{q:"4. Bir ölkədə sosial təminatın əsasən vətəndaşların əmək fəaliyyəti və ödədikləri sığorta haqları ilə əlaqələndirilməsi hansı nəticəyə səbəb ola bilər?",a:["Əmək fəaliyyəti olmayan şəxslərin sosial təminat imkanlarının məhdudlaşmasına","Bütün vətəndaşların eyni həcmdə sosial təminat almasına","Sosial təminatın yalnız dövlət büdcəsindən maliyyələşməsinə","Ailə münasibətlərinin sosial müdafiədə əsas rol oynamasına"],c:0,e:"Bu yanaşma Bismark modelinə xasdır. Əmək bazarından kənarda qalan şəxslər daha zəif müdafiə oluna bilərlər."},
-{q:"5. Sosial-demokratik modeldə sosial xidmətlər necə təşkil olunur?",a:["Əsasən yalnız özəl sektor tərəfindən","Yalnız yüksək gəlirlilərə təqdim edilir","Geniş əhali qrupları üçün əlçatan və universal şəkildə","Yalnız fövqəladə hallarda"],c:2,e:"Sosial-demokratik modeldə dövlət geniş sosial xidmətlər göstərir və bərabər imkanlar yaratmağa çalışır."},
-{q:"6. Liberal modeldə dövlətin sosial müdafiədə rolu necə xarakterizə olunur?",a:["Məhdud və daha çox ehtiyacı olanlara yönəlmiş","Bütün sosial xidmətləri birbaşa idarə edən","Bütün gəlirləri bərabərləşdirən","Sosial sahədə heç bir rolu olmayan"],c:0,e:"Liberal modeldə dövlətin müdaxiləsi nisbətən məhduddur. Yardımlar daha çox ehtiyac meyarına əsaslanır."},
-{q:"7. Konservativ-korporativ modeldə sosial təminat daha çox nədən asılıdır?",a:["Vətəndaşın yaşadığı şəhərdən","Əmək fəaliyyəti və sığorta statusundan","Yalnız könüllülük fəaliyyətindən","Ailədə uşaqların sayından"],c:1,e:"Bu modeldə sosial təminat çox vaxt insanın məşğulluğu, qazancı və sosial sığorta haqları ilə əlaqələndirilir."},
-{q:"8. Aralıq dənizi modelində ailənin rolu necədir?",a:["Ailə heç bir rol oynamır","Bütün xidmətləri yalnız dövlət göstərir","Ailə sosial dəstəyin əsas mənbələrindən biridir","Ailə yalnız maliyyə yardımı alır"],c:2,e:"İtaliya, İspaniya və Yunanıstan kimi ölkələrdə ailə ənənələri və qohum dəstəyi sosial müdafiədə mühüm rol oynayır."},
-{q:"9. Sosial-demokratik modelin əsas məqsədlərindən biri hansıdır?",a:["Sosial bərabərsizliyi azaltmaq","Yalnız sahibkarları dəstəkləmək","Dövlətin sosial xidmətlərini azaltmaq","Sosial sığortanı ləğv etmək"],c:0,e:"Bu model sosial ədaləti, gəlirlərin yenidən bölüşdürülməsini və bərabər imkanları dəstəkləyir."},
-{q:"10. Hansı ölkə liberal sosial siyasət modelinə nümunə göstərilir?",a:["İsveç","Norveç","ABŞ","Danimarka"],c:2,e:"ABŞ liberal sosial siyasət modelinin klassik nümunələrindən biri hesab olunur."},
-{q:"11. Sosial-demokratik modelin maliyyələşdirilməsində hansı vasitə mühüm rol oynayır?",a:["Yalnız xarici yardımlar","Nisbətən yüksək vergilər və dövlət büdcəsi","Yalnız ailə vəsaitləri","Yalnız özəl ianələr"],c:1,e:"Geniş sosial xidmətlərin maliyyələşdirilməsi üçün sosial-demokratik modeldə vergilər mühüm mənbədir."},
-{q:"12. Sosial siyasət modelləri arasında əsas fərqlər nədən yaranır?",a:["Ölkələrin yalnız ərazisindən","Yalnız əhalinin sayından","Dövlətin, bazarın və ailənin sosial müdafiədə iştirakından","Yalnız iqlim şəraitindən"],c:2,e:"Modellər dövlətin, bazarın, ailənin və sosial sığorta sisteminin məsuliyyət bölgüsünə görə fərqlənir."},
-{q:"13. Bismark modelinin tarixi olaraq formalaşması hansı ölkə ilə bağlıdır?",a:["Almaniya","İsveç","ABŞ","Yaponiya"],c:0,e:"Bismark modeli XIX əsrin sonlarında Almaniyada Otto fon Bismarkın sosial sığorta islahatları ilə formalaşmışdır."},
-{q:"14. Universal sosial təminat anlayışı nə deməkdir?",a:["Yalnız işləyənlərə yardım göstərilməsi","Sosial təminatın yalnız yoxsullara verilməsi","Sosial xidmətlərin yalnız özəl olması","Geniş əhali qruplarının sosial təminat və xidmətlərdən yararlanması"],c:3,e:"Universal təminat sosial hüquqların geniş əhali qruplarını əhatə etməsi deməkdir."},
-{q:"15. Azərbaycan üçün sosial siyasət modeli seçilərkən hansı yanaşma daha məqsədəuyğundur?",a:["Başqa ölkənin modelini olduğu kimi köçürmək","Ölkənin iqtisadi və sosial şəraitinə uyğun müxtəlif modellərin müsbət tərəflərini birləşdirmək","Sosial müdafiəni tamamilə ləğv etmək","Yalnız bir sosial qrupu müdafiə etmək"],c:1,e:"Hər ölkənin iqtisadi, demoqrafik və mədəni xüsusiyyətləri fərqlidir. Modellərin müsbət cəhətləri yerli şəraitə uyğunlaşdırılmalıdır."}
+const questions=[
+ {q:"Sosial siyasətin əsas məqsədi nədir?",a:["Dövlət gəlirlərini artırmaq","Cəmiyyətin rifahını yüksəltmək","Yalnız iqtisadiyyatı inkişaf etdirmək","Əhalinin sayını azaltmaq"],c:1},
+ {q:"Liberal sosial model hansı prinsipə üstünlük verir?",a:["Dövlətin tam müdaxiləsinə","Bazar mexanizminə və fərdi məsuliyyətə","Hamıya eyni pensiyaya","Yalnız dövlət mülkiyyətinə"],c:1},
+ {q:"Skandinaviya modeli daha çox hansı xüsusiyyəti ilə tanınır?",a:["Universal sosial təminat","Minimum dövlət müdaxiləsi","Yalnız özəl sığorta","Sosial müdafiənin olmaması"],c:0},
+ {q:"Bismark modelinin əsasını nə təşkil edir?",a:["Vergisiz sistem","Sosial sığorta və əməkhaqqı ödəmələri","Yalnız xeyriyyəçilik","Pulsuz ticarət"],c:1},
+ {q:"Sosial müdafiə nədir?",a:["İnsanların sosial risklərdən qorunması","Yalnız iş yerlərinin yaradılması","Yalnız təhsil sistemi","Məhsul istehsalı"],c:0},
+ {q:"Sosial siyasətin subyektinə hansı aiddir?",a:["Dövlət","İşsizlik","Yoxsulluq","Əlillik"],c:0},
+ {q:"Sosial siyasətin obyektinə hansı aiddir?",a:["Nazirlik","Bələdiyyə","Sosial müdafiəyə ehtiyacı olan əhali qrupları","QHT"],c:2},
+ {q:"Universal sosial təminat nə deməkdir?",a:["Yalnız işləyənlərə yardım","Hamı üçün nəzərdə tutulan təminat","Yalnız aztəminatlılara yardım","Yalnız yaşlılara yardım"],c:1},
+ {q:"Sosial bərabərlik nəyi ifadə edir?",a:["İmkan və hüquqlarda ədalətli yanaşmanı","Hamının eyni peşədə işləməsini","Hamının eyni gəlirə sahib olmasını","Rəqabətin ləğvini"],c:0},
+ {q:"Sosial sığortanın əsas məqsədi nədir?",a:["Sosial risklər zamanı təminat yaratmaq","Qiymətləri artırmaq","Vergiləri ləğv etmək","İdxalı azaltmaq"],c:0},
+ {q:"Aşağıdakılardan hansı sosial riskdir?",a:["İşsizlik","İstirahət","Səyahət","Əyləncə"],c:0},
+ {q:"Sosial xidmətlərin məqsədi nədir?",a:["İnsanların sosial problemlərinin həllinə kömək etmək","Yalnız vergi toplamaq","Ticarəti idarə etmək","İstehsalı dayandırmaq"],c:0},
+ {q:"Sosial siyasətdə subsidiarlıq prinsipi nəyi nəzərdə tutur?",a:["Qərarların mümkün qədər aşağı səviyyədə verilməsini","Bütün qərarların yalnız beynəlxalq qurumlar tərəfindən verilməsini","Dövlətin tamamilə kənarda qalmasını","Yardımın ləğvini"],c:0},
+ {q:"Sosial siyasətdə QHT-lərin rolu nədir?",a:["Sosial problemlərin həllində iştirak etmək","Qanunları təkbaşına qəbul etmək","Məhkəmələri idarə etmək","Vergi dərəcələrini müəyyənləşdirmək"],c:0},
+ {q:"Sosial siyasətin səmərəliliyi nə ilə ölçülür?",a:["Yalnız dövlət xərcləri ilə","Əhalinin rifahında və sosial vəziyyətində dəyişikliklərlə","Yalnız əhalinin sayı ilə","Yalnız müəssisələrin sayı ilə"],c:1}
 ];
 
-let names=["Oyunçu 1","Oyunçu 2"];
-let positions=[0,0],scores=[0,0],chosen=[null,null];
-let current=0,timeLeft=25,clock=null,revealed=false;
-const FINISH=15;
-const bonus=[3,9],speed=[5],traps=[7,12];
+let maze=[],players=[],scores=[0,0],moves=[0,0];
+let answered=[false,false],questionIndex=0,time=25,interval=null;
+let phase="answer",finished=false;
 
-function showScreen(id){
- document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
- document.getElementById(id).classList.add("active");
-}
-function startGame(){
- names=[
-  document.getElementById("name1").value.trim()||"Oyunçu 1",
-  document.getElementById("name2").value.trim()||"Oyunçu 2"
- ];
- for(let p=0;p<2;p++){
-  document.getElementById("pname"+(p+1)).textContent=(p===0?"🔴 ":"🔵 ")+names[p];
-  document.getElementById("title"+(p+1)).textContent=names[p];
-  document.getElementById("trackName"+(p+1)).textContent=names[p];
+function generateMaze(){
+ const n=11,size=2*n+1;
+ maze=Array.from({length:size},()=>Array(size).fill(1));
+ const visited=Array.from({length:n},()=>Array(n).fill(false));
+ function carve(r,c){
+  visited[r][c]=true;
+  maze[2*r+1][2*c+1]=0;
+  let dirs=[[0,1],[0,-1],[1,0],[-1,0]].sort(()=>Math.random()-.5);
+  for(const [dr,dc] of dirs){
+   let nr=r+dr,nc=c+dc;
+   if(nr>=0&&nr<n&&nc>=0&&nc<n&&!visited[nr][nc]){
+    maze[2*r+1+dr][2*c+1+dc]=0;
+    carve(nr,nc);
+   }
+  }
  }
- showScreen("game");drawTracks();renderQuestion();
+ carve(0,0);
+ players=[
+  {r:0,c:0,goal:[10,10]},
+  {r:0,c:10,goal:[10,0]}
+ ];
+ maze[1][1]=0;maze[1][19]=0;
+ maze[21][21]=0;maze[21][1]=0;
 }
-function drawTracks(){
- for(let p=0;p<2;p++){
-  const track=document.getElementById("track"+(p+1));
-  track.innerHTML="";
-  for(let i=0;i<=FINISH;i++){
-   const tile=document.createElement("div");
-   tile.className="tile";
-   if(bonus.includes(i))tile.classList.add("bonus");
-   if(speed.includes(i))tile.classList.add("bonus");
-   if(traps.includes(i))tile.classList.add("trap");
-   if(i===FINISH)tile.classList.add("finish");
-   if(i<positions[p])tile.classList.add("passed");
-   if(bonus.includes(i))tile.textContent="⭐";
-   if(speed.includes(i))tile.textContent="⚡";
-   if(traps.includes(i))tile.textContent="⚠️";
-   if(i===FINISH)tile.textContent="🏁";
-   if(i===positions[p])tile.innerHTML='<span class="runner">'+(p===0?"🏎‍🟀":"🚙")+'</span>';
-   track.appendChild(tile);
+function renderMaze(){
+ const el=document.getElementById("maze");
+ el.innerHTML="";
+ for(let r=0;r<maze.length;r++){
+  for(let c=0;c<maze[r].length;c++){
+   const d=document.createElement("div");
+   d.className="tile "+(maze[r][c]?"wall":"path");
+   if((r===21&&c===21)||(r===21&&c===1)){
+    d.classList.add("exit");
+    d.textContent="🏁";
+   }
+   if(players[0].r*2+1===r&&players[0].c*2+1===c){
+    d.innerHTML='<span class="token">🔴</span>';
+   }
+   if(players[1].r*2+1===r&&players[1].c*2+1===c){
+    d.innerHTML='<span class="token">🔵</span>';
+   }
+   el.appendChild(d);
   }
  }
 }
-function renderQuestion(){
- chosen=[null,null];revealed=false;timeLeft=25;
- const q=questions[current];
- document.getElementById("round").textContent="SUAL "+(current+1)+" / 15";
- document.getElementById("questionText").textContent=q.q;
- document.getElementById("timer").textContent="⏱️ 25";
- document.getElementById("timer").classList.remove("danger");
- document.getElementById("answered").textContent="Cavab: 0 / 2";
- document.getElementById("feedback").classList.remove("show");
- for(let p=0;p<2;p++){
-  document.getElementById("status"+(p+1)).textContent="Cavabını seç!";
-  const box=document.getElementById("answers"+(p+1));
-  box.innerHTML="";
-  q.a.forEach((option,i)=>{
-   const b=document.createElement("button");
-   b.className="answer";
-   b.textContent=String.fromCharCode(65+i)+". "+option;
-   b.onclick=()=>chooseAnswer(p,i);
-   box.appendChild(b);
-  });
+function showQuestion(){
+ if(questionIndex>=questions.length){
+  endGame();return;
  }
- clearInterval(clock);
- clock=setInterval(()=>{
-  timeLeft--;
-  document.getElementById("timer").textContent="⏱️ "+timeLeft;
-  if(timeLeft<=5)document.getElementById("timer").classList.add("danger");
-  if(timeLeft<=0){clearInterval(clock);revealAnswers();}
+ let q=questions[questionIndex];
+ document.getElementById("question").textContent=
+  (questionIndex+1)+". "+q.q;
+ const box=document.getElementById("answers");
+ box.innerHTML="";
+ q.a.forEach((answer,i)=>{
+  const b=document.createElement("button");
+  b.className="answer";
+  b.textContent=String.fromCharCode(65+i)+". "+answer;
+  b.onclick=()=>answerQuestion(i);
+  b.id="ans"+i;
+  box.appendChild(b);
+ });
+ answered=[false,false];
+ moves=[0,0];
+ phase="answer";
+ document.getElementById("next").disabled=true;
+ document.getElementById("feedback").textContent="🔴 və 🔵 oyunçular cavablarını seçsin!";
+ startTimer();
+ updateStats();
+}
+function startTimer(){
+ clearInterval(interval);
+ time=25;
+ document.getElementById("timer").textContent=time;
+ interval=setInterval(()=>{
+  time--;
+  document.getElementById("timer").textContent=time;
+  if(time<=0){
+   clearInterval(interval);
+   if(!answered[0])submitAnswer(0,-1);
+   if(!answered[1])submitAnswer(1,-1);
+   revealAnswers();
+  }
  },1000);
 }
-function chooseAnswer(p,i){
- if(chosen[p]!==null||revealed)return;
- chosen[p]=i;
- const buttons=document.getElementById("answers"+(p+1)).querySelectorAll("button");
- buttons.forEach((b,j)=>{b.disabled=true;if(i===j)b.classList.add("selected")});
- document.getElementById("status"+(p+1)).textContent="Cavab qeydə alındı ✓";
- const count=chosen.filter(x=>x!==null).length;
- document.getElementById("answered").textContent="Cavab: "+count+" / 2";
- if(count===2){clearInterval(clock);revealAnswers();}
+function answerQuestion(i){
+ if(phase!=="answer")return;
+ const player=answered[0]?1:0;
+ if(answered[player])return;
+ submitAnswer(player,i);
+ if(answered[0]&&answered[1])revealAnswers();
 }
-function advance(p){
- let next=Math.min(FINISH,positions[p]+1);
- let msg="Bir addım irəli! 🏎‍🟀";
- if(bonus.includes(next)){
-  next=Math.min(FINISH,next+1);msg="Bonus qazandın! ⭐ İki addım irəli!";
- }else if(speed.includes(next)){
-  next=Math.min(FINISH,next+2);msg="Sürət zolağı! ⚡ İki addım irəli!";
- }else if(traps.includes(next)){
-  next=Math.max(0,next-1);msg="Maneə! ⚠️ Bir addım geri!";
+function submitAnswer(p,i){
+ if(answered[p])return;
+ answered[p]=true;
+ const q=questions[questionIndex];
+ const correct=i===q.c;
+ if(correct){
+  scores[p]++;
+  moves[p]=2;
  }
- positions[p]=next;
- return msg;
+ const selected=document.getElementById("ans"+i);
+ if(selected)selected.classList.add(correct?"correct":"wrong");
+ updateStats();
+ if(answered[0]&&answered[1])revealAnswers();
 }
 function revealAnswers(){
- if(revealed)return;
- revealed=true;clearInterval(clock);
- const q=questions[current],messages=[];
- for(let p=0;p<2;p++){
-  const buttons=document.getElementById("answers"+(p+1)).querySelectorAll("button");
-  buttons.forEach((b,i)=>{
-   b.disabled=true;
-   if(i===q.c)b.classList.add("correct");
-   if(chosen[p]===i&&i!==q.c)b.classList.add("wrong");
-  });
-  if(chosen[p]===q.c){
-   scores[p]++;
-   const msg=advance(p);
-   document.getElementById("status"+(p+1)).textContent="Düzgün cavab! "+msg;
-   messages.push(names[p]+": "+msg);
-  }else if(chosen[p]===null){
-   document.getElementById("status"+(p+1)).textContent="Vaxt bitdi!";
-   messages.push(names[p]+": Cavab vermədi.");
-  }else{
-   document.getElementById("status"+(p+1)).textContent="Yanlış cavab! Yerində qaldın.";
-   messages.push(names[p]+": Yanlış cavab.");
-  }
+ if(phase!=="answer")return;
+ clearInterval(interval);
+ phase="move";
+ const q=questions[questionIndex];
+ const correctButton=document.getElementById("ans"+q.c);
+ if(correctButton)correctButton.classList.add("correct");
+ document.querySelectorAll(".answer").forEach(b=>b.disabled=true);
+ let message="Düzgün cavab: "+q.a[q.c]+". ";
+ message+="🔴 "+moves[0]+" hərəkət, 🔵 "+moves[1]+" hərəkət qazandı.";
+ document.getElementById("feedback").textContent=message;
+ if(moves[0]===0&&moves[1]===0){
+  document.getElementById("next").disabled=false;
  }
+}
+function move(p,dr,dc){
+ if(phase!=="move"||finished||moves[p]<=0)return;
+ const pl=players[p];
+ const nr=pl.r+dr,nc=pl.c+dc;
+ if(nr<0||nr>=11||nc<0||nc>=11)return;
+ const wallR=2*pl.r+1+dr;
+ const wallC=2*pl.c+1+dc;
+ if(maze[wallR][wallC]===1)return;
+ pl.r=nr;pl.c=nc;
+ moves[p]--;
+ renderMaze();updateStats();
+ if(pl.r===pl.goal[0]&&pl.c===pl.goal[1]){
+  endGame(p);return;
+ }
+ if(moves[0]===0&&moves[1]===0){
+  document.getElementById("next").disabled=false;
+  document.getElementById("feedback").textContent=
+   "Hər iki oyunçu hərəkətlərini tamamladı. Növbəti suala keçə bilərsiniz!";
+ }
+}
+function updateStats(){
  document.getElementById("score1").textContent=scores[0];
  document.getElementById("score2").textContent=scores[1];
- drawTracks();
- document.getElementById("feedbackTitle").textContent="✨ DÜZGÜN CAVAB: "+String.fromCharCode(65+q.c);
- document.getElementById("feedbackText").textContent=q.e+" "+messages.join(" ");
- document.getElementById("feedback").classList.add("show");
- document.getElementById("nextBtn").textContent=current===14?"NƏTİCƏLƏR 🏆":"NÖVBƏTİ SUAL ➜";
+ document.getElementById("moves1").textContent=moves[0];
+ document.getElementById("moves2").textContent=moves[1];
 }
 function nextQuestion(){
- current++;
- if(current>=questions.length)finishGame();
- else renderQuestion();
+ if(phase!=="move"||moves[0]>0||moves[1]>0||finished)return;
+ questionIndex++;
+ showQuestion();
 }
-function finishGame(){
- clearInterval(clock);showScreen("end");
- let winner;
- if(positions[0]>positions[1])winner="🏆 QALİB: "+names[0];
- else if(positions[1]>positions[0])winner="🏆 QALİB: "+names[1];
- else if(scores[0]>scores[1])winner="🏆 QALİB: "+names[0];
- else if(scores[1]>scores[0])winner="🏆 QALİB: "+names[1];
- else winner="🤝 HEÇ-HEÇƏ!";
- document.getElementById("winner").textContent=winner;
- document.getElementById("finalScores").innerHTML=
-  "🔴 "+names[0]+": <b>"+positions[0]+" addım</b> — "+scores[0]+" düzgün cavab<br>"+
-  "🔵 "+names[1]+": <b>"+positions[1]+" addım</b> — "+scores[1]+" düzgün cavab";
+function endGame(winner=-1){
+ finished=true;phase="end";clearInterval(interval);
+ document.querySelectorAll(".answer").forEach(b=>b.disabled=true);
+ document.getElementById("next").disabled=true;
+ let message;
+ if(winner===0)message="🏆 QIRMIZI OYUNÇU LABİRİNTDƏN ÇIXDI!";
+ else if(winner===1)message="🏆 MAVİ OYUNÇU LABİRİNTDƏN ÇIXDI!";
+ else if(players[0].r===10&&players[0].c===10)message="🏆 QIRMIZI OYUNÇU QALİB OLDU!";
+ else if(players[1].r===10&&players[1].c===0)message="🏆 MAVİ OYUNÇU QALİB OLDU!";
+ else message="🎉 SUALLAR BİTDİ! Nəticə: 🔴 "+scores[0]+" – "+scores[1]+" 🔵";
+ document.getElementById("result").textContent=message;
+ document.getElementById("feedback").textContent="Oyun başa çatdı!";
 }
+generateMaze();
+renderMaze();
+showQuestion();
 </script>
 </body>
 </html>
